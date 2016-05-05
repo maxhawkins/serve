@@ -20,13 +20,16 @@ func openURL(url string) {
 
 func main() {
 	var (
-		port       = flag.String("port", "8080", "Define what TCP port to bind to")
 		root       = flag.String("root", ".", "Define the root filesystem path")
 		shouldOpen = flag.Bool("open", false, "Whether to open a web browser to the running server")
 	)
 	flag.Parse()
 
-	addr := ":" + *port
+	port := flag.Arg(0)
+	if port == "" {
+		port = "8080"
+	}
+	addr := ":" + port
 
 	if *shouldOpen {
 		go openURL("http://localhost" + addr)
